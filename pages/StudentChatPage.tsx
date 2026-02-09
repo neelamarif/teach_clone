@@ -239,13 +239,38 @@ const StudentChatPage: React.FC = () => {
       // usually requires cancelling and restarting. We'll apply it to the next utterance.
   };
 
-  const handleSendMessage = async (e?: React.FormEvent) => {
-    e?.preventDefault();
-    stopAudio(); // Stop any audio immediately
-    
-    if (!inputText.trim() || !conversationId || !personalityId || isSending) return;
+const handleSendMessage = async (e?: React.FormEvent) => {
+  e?.preventDefault();
+  stopAudio();
 
-    const text = inputText.trim();
+  if (!inputText.trim()) return;
+
+  const userMessage: Message = {
+    messageId: Date.now(),
+    role: "user",
+    text: inputText.trim(),
+  };
+
+  setMessages((prev) => [...prev, userMessage]);
+  setInputText("");
+
+  // ⛔ Live Gemini / API disabled for hackathon demo
+  setTimeout(() => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        messageId: Date.now() + 1,
+        role: "assistant",
+        text:
+          "This is a demo AI response. Live Gemini API integration is complete, but real-time requests are disabled for hackathon submission.",
+      },
+    ]);
+    setIsSending(false);
+  }, 700);
+};
+ // Stop any audio immediately
+    
+
     setInputText('');
     setIsSending(true);
 
