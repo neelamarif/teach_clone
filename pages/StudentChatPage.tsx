@@ -284,20 +284,6 @@ const handleSendMessage = async (e?: React.FormEvent) => {
     };
     setMessages(prev => [...prev, tempMsg]);
 
-    // Call API
-    const response = await processStudentMessage(conversationId, parseInt(personalityId), text);
-
-    if (response.success && response.aiResponse) {
-        const aiMsg: Message = {
-            messageId: Date.now() + 1,
-            conversationId: conversationId,
-            senderType: 'ai',
-            messageText: response.aiResponse,
-            createdAt: response.timestamp || new Date().toISOString(),
-            audioConfig: response.audioConfig,
-            audioBase64: response.audioBase64
-        };
-        setMessages(prev => [...prev, aiMsg]);
         
         // Auto-play response
         setTimeout(() => playMessageAudio(aiMsg), 200); 
