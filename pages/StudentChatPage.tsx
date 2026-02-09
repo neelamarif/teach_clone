@@ -83,6 +83,20 @@ const StudentChatPage: React.FC = () => {
           .join('');
         setInputText(transcript);
       };
+// 🚫 Live Gemini API disabled (Hackathon safe demo)
+setTimeout(() => {
+  const aiMsg: Message = {
+    messageId: Date.now() + 1,
+    conversationId: conversationId,
+    senderType: 'ai',
+    messageText:
+      "This is a demo AI response. Live Gemini API is temporarily disabled for hackathon submission.",
+    createdAt: new Date().toISOString(),
+  };
+
+  setMessages(prev => [...prev, aiMsg]);
+  setIsSending(false);
+}, 600);
 
       recognitionRef.current.onerror = (event: any) => {
         console.error('Speech recognition error', event.error);
