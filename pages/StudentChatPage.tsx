@@ -287,9 +287,7 @@ const handleSendMessage = async (e?: React.FormEvent) => {
         
         // Auto-play response
         setTimeout(() => playMessageAudio(aiMsg), 200); 
-    } else {
-        showNotification('error', "Failed to send message: " + response.message);
-    }
+    } 
 
     setIsSending(false);
   };
